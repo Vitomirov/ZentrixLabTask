@@ -1,0 +1,75 @@
+version: "3.9"
+
+services:
+  account-service:
+    build: ./services/account-service
+    container_name: account-service
+    ports:
+      - "3001:3000"
+    env_file:
+      - ./services/account-service/.env
+    depends_on:
+      - account-db
+
+  character-service:
+    build: ./services/character-service
+    container_name: character-service
+    ports:
+      - "3002:3000"
+    env_file:
+      - ./services/character-service/.env
+    depends_on:
+      - character-db
+      - redis
+
+  combat-service:
+    build: ./services/combat-service
+    container_name: combat-service
+    ports:
+      - "3003:3000"
+    env_file:
+      - ./services/combat-service/.env
+    depends_on:
+      - combat-db
+      - redis
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  account-db:
+    image: postgres:15
+    container_name: account-db
+    environment:
+      POSTGRES_DB: account_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - account-db-data:/var/lib/postgresql/data
+
+  character-db:
+    image: postgres:15
+    container_name: character-db
+    environment:
+      POSTGRES_DB: character_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - character-db-data:/var/lib/postgresql/data
+
+  combat-db:
+    image: postgres:15
+    container_name: combat-db
+    environment:
+      POSTGRES_DB: combat_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - combat-db-data:/var/lib/postgresql/data
+
+volumes:
+  account-db-data:
+  character-db-data:
+  combat-db-data:
