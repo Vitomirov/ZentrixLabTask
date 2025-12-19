@@ -1,11 +1,12 @@
 {
   "name": "account-service",
   "version": "1.0.0",
-  "scripts": {
-    "dev": "ts-node-dev src/main.ts",
-    "build": "tsc",
-    "start": "node dist/main.js"
-  },
+"scripts": {
+  "dev": "ts-node-dev src/main.ts",
+  "build": "tsc",
+  "start": "node dist/main.js",
+  "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/db.ts"
+},
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",

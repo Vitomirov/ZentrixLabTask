@@ -1,3 +1,7 @@
 node_modules
 dist
-.env
+*.env
+
+# Ignore node_modules and dist folders in all services
+/services/*/node_modules
+/services/*/dist
