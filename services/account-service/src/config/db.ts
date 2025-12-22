@@ -16,5 +16,5 @@ export const AppDataSource = new DataSource({
 
 export async function initializeDB() {
   await AppDataSource.initialize();
-  console.log("DB connected");
+  console.log("account DB connected");
 }

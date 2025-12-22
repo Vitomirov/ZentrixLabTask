@@ -12,12 +12,10 @@ dotenv.config();
 export const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.DATABASE_URL,
-  // Koristimo path.join da bi radilo i u lokalu i u Dockeru
   entities: [Character, CharacterClass, CharacterItem, Item],
-// Putanja mora da izađe iz src/config i uđe u src/migrations
-migrations: [path.join(__dirname, "..", "migrations", "*.ts")],
+  migrations: [path.join(__dirname, "..", "migrations", "*.ts")],
   migrationsTableName: "migrations",
-  synchronize: false, // Isključeno jer koristimo migracije
+  synchronize: false, 
   logging: true,
 });
 

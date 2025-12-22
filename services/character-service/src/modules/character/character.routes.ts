@@ -4,6 +4,6 @@ import { jwtMiddleware } from "../../middlewares/jwt.middleware";
 
 const router = Router();
 
-router.post("/", jwtMiddleware, createCharacter); // POST /api/character
+router.post("/", jwtMiddleware, createCharacter);
 
 export default router;

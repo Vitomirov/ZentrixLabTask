@@ -18,31 +18,31 @@ async function startServer() {
   let retries = 5;
   while (retries) {
     try {
-      console.log("⏳ Connecting to DB...");
+      console.log("Connecting to DB...");
       await AppDataSource.initialize();
-      console.log("🚀 Character DB connected");
+      console.log("Character DB connected");
 
-      console.log("🛠️  Checking for pending migrations...");
+      console.log("Checking for pending migrations...");
       const pendingMigrations = await AppDataSource.showMigrations();
       
       if (pendingMigrations) {
-        console.log("📦 Running migrations...");
+        console.log("Running migrations...");
         await AppDataSource.runMigrations();
-        console.log("✅ Migrations applied!");
+        console.log("Migrations applied!");
       } else {
-        console.log("ℹ️  No pending migrations.");
+        console.log("ℹNo pending migrations.");
       }
 
       app.listen(PORT, () => {
         console.log(`🌍 Character service running on port ${PORT}`);
       });
-      break; // Uspeh, izađi iz loop-a
+      break;
     } catch (err) {
       retries -= 1;
-      console.error(`❌ Startup error. Retries left: ${retries}`);
+      console.error(`Startup error. Retries left: ${retries}`);
       console.error(err);
       if (retries === 0) process.exit(1);
-      await new Promise(res => setTimeout(res, 5000)); // Čekaj 5s pre retry-a
+      await new Promise(res => setTimeout(res, 5000));
     }
   }
 }

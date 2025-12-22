@@ -15,11 +15,9 @@ export async function createCharacter(req: Request, res: Response) {
       characterClassId 
     } = req.body;
     
-    // Provera osnovnih polja
     if (!name) return res.status(400).json({ message: "Character name is required" });
     if (!characterClassId) return res.status(400).json({ message: "Character class ID is required" });
 
-    // Uzimanje user informacija iz middleware-a (Bypass za TypeScript error)
     const user = (req as any).user;
     if (!user || !user.userId) {
       return res.status(401).json({ message: "Unauthorized: No user found in token" });
@@ -27,11 +25,9 @@ export async function createCharacter(req: Request, res: Response) {
 
     const repo = AppDataSource.getRepository(Character);
     
-    // Provera da li ime već postoji
     const existing = await repo.findOne({ where: { name } });
     if (existing) return res.status(409).json({ message: "Character name already exists" });
 
-    // Kreiranje novog karaktera
     const character = repo.create({
       name,
       health: health ?? 100,
@@ -40,7 +36,7 @@ export async function createCharacter(req: Request, res: Response) {
       baseAgility: baseAgility ?? 10,
       baseIntelligence: baseIntelligence ?? 10,
       baseFaith: baseFaith ?? 10,
-      createdBy: user.userId, // Koristimo izvučeni userId
+      createdBy: user.userId,
       characterClass: { id: characterClassId } as any 
     });
 
