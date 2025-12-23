@@ -6,7 +6,7 @@
     "start": "node dist/main.js",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/db.ts",
     "account-test": "./start-test.sh",
-    "jest-test": "jest"
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
