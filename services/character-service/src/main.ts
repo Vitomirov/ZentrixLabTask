@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/character", characterRoutes);
-app.use("/api/item", itemRoutes);
+app.use("/api/items", itemRoutes);
 app.get("/health", (_req, res) => res.json({ service: "character-service", status: "ok" }));
 
 const PORT = Number(process.env.PORT || 3000);
