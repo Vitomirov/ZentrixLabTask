@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import express from "express";
 import dotenv from "dotenv";
+import { connectRedis} from "./config/redis";
 import { AppDataSource } from "./config/db";
 import { seedDatabase } from "./config/seed";
 import characterRoutes from "./modules/character/character.routes";
@@ -26,6 +27,8 @@ async function startServer() {
         await AppDataSource.initialize();
       }
       console.log("Character DB connected");
+      await connectRedis();
+      console.log("Redis connected");
 
       console.log("🚀 Checking migrations...");
       await AppDataSource.runMigrations();

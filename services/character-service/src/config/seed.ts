@@ -1,7 +1,5 @@
-// services/character-service/src/config/seed.ts
-
-import { AppDataSource } from "./db"; // Importujemo konekciju
-import { CharacterClass } from "../entities/CharacterClass"; // Importujemo entitete
+import { AppDataSource } from "./db";
+import { CharacterClass } from "../entities/CharacterClass";
 import { Item } from "../entities/Item";
 
 export async function seedDatabase() {
@@ -10,7 +8,7 @@ export async function seedDatabase() {
   const classRepo = AppDataSource.getRepository(CharacterClass);
   const itemRepo = AppDataSource.getRepository(Item);
 
-  // Provera za klase
+  
   const warriorExists = await classRepo.findOneBy({ name: "Warrior" });
   if (!warriorExists) {
     console.log("🌱 SEED: Inserting Warrior & Mage...");
@@ -20,7 +18,7 @@ export async function seedDatabase() {
     ]);
   }
 
-  // Provera za iteme
+  
   const itemExists = await itemRepo.findOneBy({ name: "Dragon Slayer" });
   if (!itemExists) {
     console.log("⚔️ SEED: Inserting Items...");
