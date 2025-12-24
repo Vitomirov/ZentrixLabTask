@@ -1,58 +1,99 @@
-Zentrix RPG - Microservices System
-A scalable RPG game system built with a microservice architecture. Players can create characters, manage equipment (grant/gift items), and engage in real-time combat with automated loot mechanics.
+# ⚔️ Zentrix RPG — Microservices Battle System
 
-🏗 Architecture
-The system consists of three core services:
+A production-ready **RPG backend system** built on a clean **microservices architecture**.  
+Players create characters, manage equipment, and fight turn-based duels with **automatic loot distribution** — all fully containerized and runnable with a single command.
 
-Account Service: Handles JWT-based authentication and user roles (User/GameMaster).
+This project demonstrates **real-world backend patterns**: service isolation, async workflows, caching, and infrastructure automation.
 
-Character Service: Manages characters, classes, and items. Includes Redis caching for character stats.
+---
 
-Combat Service: Orchestrates duels, turn-based actions (Attack, Cast, Heal), and loot distribution upon victory.
+## 🏗️ Architecture Overview
 
-🛠 Tech Stack
-Backend: Node.js, TypeScript, Express
+The system is composed of **three independent services**, each owning its **own database** (strict data isolation).
 
-Database: PostgreSQL (TypeORM)
+### 🔐 Account Service
+- JWT authentication
+- Role-based access control (`User`, `GameMaster`)
+- Central identity provider for the system
 
-Caching: Redis
+### 👤 Character Service
+- Character creation & class management
+- Item ownership, granting, and gifting
+- **Redis caching** for character stats (performance optimization)
 
-Infrastructure: Docker Compose
+### ⚔️ Combat Service
+- Duel orchestration
+- Turn-based actions:
+  - `Attack`
+  - `Cast`
+  - `Heal`
+- Automatic loot transfer to the winner
 
-🚀 Getting Started
-1. Prerequisites
-Ensure you have the following installed:
+---
 
-Docker & Docker Compose
+## 🛠️ Tech Stack
 
-jq (command-line JSON processor, used for the simulation script)
+| Layer           | Technology                         |
+|-----------------|-------------------------------------|
+| Backend         | Node.js, TypeScript, Express        |
+| ORM / DB        | PostgreSQL, TypeORM                 |
+| Caching         | Redis                               |
+| Infrastructure | Docker, Docker Compose              |
+| Auth            | JWT                                 |
 
-2. Installation
-Clone the repository and spin up the environment:
+---
 
-Bash
+## 🚀 Getting Started
 
+### 1️⃣ Prerequisites
+
+Make sure you have the following installed:
+- Docker
+- Docker Compose
+- jq (command-line JSON processor)
+
+---
+
+### 2️⃣ Installation & Startup
+
+Start **all services, databases, migrations, and seeders** with a single command:
+
+```bash
 docker-compose up --build
-Note: Migrations and database seeding (initial classes and items) run automatically on startup.
+```
+Database migrations and initial seeding (classes, base items) run automatically on startup.
 
-3. Running the Simulation
-To verify the entire system flow—including registration, item gifting, combat, and loot transfer—run the provided automation script:
+---
 
-Bash
+### 3️⃣ End-to-End Simulation
 
+To validate the entire system flow — from registration to combat and loot transfer — run:
+
+```bash
 chmod +x simulate_rpg.sh
 npm run simulation
-🧪 Testing
-Unit tests are included for core business logic (stat calculation and naming conventions). To run tests within a service:
+```
 
-Bash
+This script performs:
 
+- User registration & login
+- Character creation
+- Item granting & gifting
+- Combat initiation
+
+---
+
+### 🧪 Testing
+
+Unit tests cover core business logic, including:
+
+- Stat calculations
+- Dynamic naming rules
+- Service-level behavior
+
+Run all tests from the project root:
+```bash
 npm test
-📋 API Overview
-Auth: POST /api/auth/register, POST /api/auth/login
-
-Characters: GET /api/character (GM only), POST /api/character
-
-Items: POST /api/items/grant, POST /api/items/gift
-
-Combat: POST /api/combat/challenge, POST /api/combat/:duelId/cast
+```
+---
+Developed by Dejan Vitomirov as an entry task for Zentrix Lab.
