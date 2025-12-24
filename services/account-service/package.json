@@ -4,7 +4,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
-    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/db.ts",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/db.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

@@ -2,7 +2,7 @@
   "name": "zentrix-rpg-root",
   "version": "1.0.0",
   "scripts": {
-    "test": "npm test --prefix services/character-service",
+    "test": "docker exec -it character-service npm test",
     "simulation": "bash simulate_rpg.sh"
   }
 }
