@@ -65,6 +65,19 @@ Database migrations and initial seeding (classes, base items) run automatically 
 
 ---
 
+## 🔐 Environment Configuration
+
+Each service uses its own isolated environment configuration.  
+Environment files (`.env`) are intentionally excluded from version control.
+
+Before starting the system, create `.env` files from the provided examples:
+
+```bash
+cp services/account-service/.env.example services/account-service/.env
+cp services/character-service/.env.example services/character-service/.env
+cp services/combat-service/.env.example services/combat-service/.env
+
+
 ### 3️⃣ End-to-End Simulation
 
 To validate the entire system flow — from registration to combat and loot transfer — run:
