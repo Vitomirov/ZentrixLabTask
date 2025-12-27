@@ -35,6 +35,46 @@ export async function createItem(req: Request, res: Response) {
   }
 }
 
+ // GET /api/items
+export async function getItems(req: any, res: Response) {
+  try {
+
+    if (req.user?.role !== 'GameMaster') {
+      return res.status(403).json({ message: "Only Game Masters can list all items" });
+    }
+
+    const repo = AppDataSource.getRepository(Item);
+    const items = await repo.find();
+
+    const itemsWithSuffix = items.map(item => {
+    const stats = [
+      { name: "Strength", value: item.bonusStrength },
+      { name: "Agility", value: item.bonusAgility },
+      { name: "Intelligence", value: item.bonusIntelligence },
+      { name: "Faith", value: item.bonusFaith },
+      ];
+
+    const highest = stats.reduce((prev, current) => 
+      (prev.value >= current.value) ? prev : current
+      );
+
+    const finalName = highest.value > 0 
+      ? `${item.name} of ${highest.name}` 
+      : item.name;
+
+    return {
+      ...item,
+      name: finalName
+    };
+});
+
+    return res.json(itemsWithSuffix);
+  } catch (err) {
+    console.error("GET ITEMS ERROR:", err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+} 
+
 // GET /api/items/:id
 export async function getItemDetails(req: Request, res: Response) {
   try {
